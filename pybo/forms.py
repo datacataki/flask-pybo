@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField
 # from wtforms.fields.html5 import EmailField
+
 from wtforms.validators import DataRequired, Length, EqualTo, Email
+
 
 class QuestionForm(FlaskForm):
     subject = StringField('제목', validators=[DataRequired('제목은 필수입력항목입니다')]) # 글자수 제한있음, validators는 필수항목 체크
@@ -19,6 +21,8 @@ class UserCreateForm(FlaskForm): # 계정생성을 위한 폼의 클래스명
 class UserLoginForm(FlaskForm): # 로그인 폼
     username = StringField('사용자이름', validators=[DataRequired(), Length(min=3, max=25)])
     password = PasswordField('비밀번호', validators=[DataRequired()])
+
+
 
 
 
