@@ -27,6 +27,7 @@ def create():
     form = QuestionForm()
     if request.method == 'POST' and form.validate_on_submit(): # 전송된 폼 데이터의 정합성을 점검함
         # 폼을 생성할때 각필드에 지정한 DataRequired() 같은 점검 항목에 이상이 없는지 확인
+        db.create_all()
         question = Question(subject=form.subject.data, content=form.content.data, create_date = datetime.now())
         db.session.add(question)
         db.session.commit()
