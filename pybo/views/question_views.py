@@ -24,6 +24,7 @@ def detail(question_id):
 
 @bp.route('/create/', methods=('GET', 'POST'))
 def create():
+    db.create_all()
     form = QuestionForm()
     if request.method == 'POST' and form.validate_on_submit(): # 전송된 폼 데이터의 정합성을 점검함
         # 폼을 생성할때 각필드에 지정한 DataRequired() 같은 점검 항목에 이상이 없는지 확인
