@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import MetaData
 
 db = SQLAlchemy() # 전역변수로 db,migrate 객체 생성
 migrate = Migrate() # db객체를 create_app함수안에서 생성하면 블루프린트같은 다른 모듈에서 불러올 수 없어서 전역변수로 생성
@@ -22,8 +23,11 @@ def create_app(): # app 객체를 생성해 반환. create_app 함수가 어플�
     #     return 'Hello, Pybo!'
     
     # ORM
-    db.init_app(app) # 전역변수로 db,migrate 객체 생성해서 create_app 함수안에서 init_app 매서드를 이용해서 초기화함
-    migrate.init_app(app, db)
+    db.init_app(app)
+    if app.config['SQLALCHEMY_DATABASE_URI'].startswith("sqlite"):
+        migrate.init_app(app, db, render_as_batch=True)
+    else:
+        migrate.init_app(app, db)
     from . import models
     # .은 현재 패키지
     
