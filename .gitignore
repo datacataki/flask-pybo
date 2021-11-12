@@ -1,5 +1,4 @@
 .idea
 android_login.db
-migrations
 *.pyc
 __pycache__
